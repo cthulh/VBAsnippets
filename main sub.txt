@@ -1,0 +1,116 @@
+WORKSHEET LEVEL EVENTS
+
+Private Sub Worksheet_Activate()
+
+Dim fso As Scripting.filesystemobject
+Dim changeLog As Scripting.textstream
+Dim r As Range
+
+Set fso = New Scripting.filesystemobject
+
+Set changeLog = fso.openTextFile( _
+Filename:=Environ("UserProfile") & "\Desktop\Changes.txt", _
+IOMode:=ForAppending, _
+Create:=True)
+
+changeLog.Write Now & vbTab 'time and date
+changeLog.Write Workbooks.Application.ActiveWorkbook.Name & vbTab ' what workbook
+changeLog.Write ActiveSheet.Name & vbTab ' what sheet
+changeLog.Write Environ("UserName") & vbTab ' who
+changeLog.Write " " vbTab 'cells
+changeLog.Write "Tab Activated" & vbNewLine 'action
+
+changeLog.Close
+
+
+End Sub
+
+Private Sub Worksheet_Change(ByVal Target As Range)
+
+Dim fso As Scripting.filesystemobject
+Dim changeLog As Scripting.textstream
+Dim r As Range
+
+Set fso = New Scripting.filesystemobject
+
+Set changeLog = fso.openTextFile( _
+Filename:=Environ("UserProfile") & "\Desktop\Changes.txt", _
+IOMode:=ForAppending, _
+Create:=True)
+
+If Target.Cells.Count > 1000 Then
+    changeLog.Write Now & vbTab 'time and date
+    changeLog.Write Workbooks.Application.ActiveWorkbook.Name & vbTab ' what workbook
+    changeLog.Write ActiveSheet.Name & vbTab ' what sheet
+    changeLog.Write Environ("UserName") & vbTab ' who
+    changeLog.Write Target.Address & vbTab 'cells
+    changeLog.Write "Multiple values changed" & vbNewLine 'action
+Else
+    For Each r In Target
+
+    changeLog.Write Now & vbTab 'time and date
+    changeLog.Write Workbooks.Application.ActiveWorkbook.Name & vbTab ' what workbook
+    changeLog.Write ActiveSheet.Name & vbTab ' what sheet
+    changeLog.Write Environ("UserName") & vbTab ' who
+    changeLog.Write r.Address & vbTab 'cells
+    If r.Value = "" Then
+        changeLog.Write "Deletion" & vbNewLine 'action
+    Else
+        changeLog.Write "Input: " & r.Value & vbNewLine 'action
+    End If
+    Next r
+End If
+
+changeLog.Close
+
+
+End Sub
+
+WORKBOOK LEVEL EVENTS
+
+Private Sub Workbook_BeforeClose(Cancel As Boolean)
+Dim fso As Scripting.filesystemobject
+Dim changeLog As Scripting.textstream
+Dim r As Range
+
+Set fso = New Scripting.filesystemobject
+
+Set changeLog = fso.openTextFile( _
+Filename:=Environ("UserProfile") & "\Desktop\Changes.txt", _
+IOMode:=ForAppending, _
+Create:=True)
+
+changeLog.Write Now & vbTab 'time and date
+changeLog.Write Workbooks.Application.ActiveWorkbook.Name & vbTab ' what workbook
+changeLog.Write ActiveSheet.Name & vbTab ' what sheet
+changeLog.Write Environ("UserName") & vbTab ' who
+changeLog.Write " " & vbTab 'cells
+changeLog.Write "Workbook Closed" & vbNewLine 'action
+
+changeLog.Close
+
+End Sub
+
+Private Sub Workbook_Open()
+
+Dim fso As Scripting.filesystemobject
+Dim changeLog As Scripting.textstream
+Dim r As Range
+
+Set fso = New Scripting.filesystemobject
+
+Set changeLog = fso.openTextFile( _
+Filename:=Environ("UserProfile") & "\Desktop\Changes.txt", _
+IOMode:=ForAppending, _
+Create:=True)
+
+changeLog.Write Now & vbTab 'time and date
+changeLog.Write Workbooks.Application.ActiveWorkbook.Name & vbTab ' what workbook
+changeLog.Write ActiveSheet.Name & vbTab ' what sheet
+changeLog.Write Environ("UserName") & vbTab ' who
+changeLog.Write " " & vbTab 'cells
+changeLog.Write "Workbook Open" & vbNewLine 'action
+
+changeLog.Close
+
+End Sub

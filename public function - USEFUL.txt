@@ -1,0 +1,17 @@
+Option Explicit 
+Public Function Arr(test) 
+    Select Case test 
+    Case "yes" 
+        Arr = Array("a", "b", "c") 
+    Case "no" 
+        Arr = Array("d", "e", "f") 
+    End Select 
+End Function 
+ 
+Sub try() 
+    Dim a As Variant, test As String 
+    test = "no" 
+    For Each a In Arr(test) 
+        MsgBox a 
+    Next a 
+End Sub 

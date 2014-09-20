@@ -1,0 +1,44 @@
+option explicit
+
+const AcessConStr as String = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\myFolder\myAccessFile.accdb;Persist Security Info=False;"
+const SQLConStr as String = "Server=myServerName\myInstanceName;Database=myDataBase;User Id=myUsername;Password=myPassword;Provider=SQLNCLI11;Server=myServerName\theInstanceName;Database=myDataBase;Trusted_Connection=yes;
+
+sub modifydb()
+
+dim moviesconn as ADODB.Connection
+dim moviesdata as ADODB.Recordset
+
+set moviesconn = new ADODB.Connection
+Set moviesdata = new ADODB.Recordset
+
+moviesconn.ConnectionString= AcessConStr
+moviesconn.Open
+
+On Erro goto CloseConnection
+
+With moviesdata
+	.ActiveConnection = MoviesConn
+	.Source = "tblFilm" 'table name
+	.LockType = adLockOptimistic
+	.CursorType = adOpenKeyset
+	.Open
+
+
+	On Error goto CloseRecordset
+
+	
+
+
+End with
+
+
+
+CloseRecordset:
+	MoviesData.Close
+CloseConnection:
+	MoviesConn.Close
+
+Set MoviesData = Nothing
+Set moviesconn = Nothing
+
+end sub

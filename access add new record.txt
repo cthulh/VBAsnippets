@@ -1,0 +1,47 @@
+option explicit
+
+const AcessConStr as String = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\myFolder\myAccessFile.accdb;Persist Security Info=False;"
+const SQLConStr as String = "Server=myServerName\myInstanceName;Database=myDataBase;User Id=myUsername;Password=myPassword;Provider=SQLNCLI11;Server=myServerName\theInstanceName;Database=myDataBase;Trusted_Connection=yes;
+
+sub updatedb()
+
+dim moviesconn as ADODB.Connection
+dim moviesdata as ADODB.Recordset
+
+set moviesconn = new ADODB.Connection
+Set moviesdata = new ADODB.Recordset
+
+moviesconn.ConnectionString= AcessConStr
+moviesconn.Open
+
+On Erro goto CloseConnection
+
+With moviesdata
+	.ActiveConnection = MoviesConn
+	.Source = "tblFilm" 'table name
+	.LockType = adLockOptimistic
+	.CursorType = adOpenForwardOnly
+	.Open
+
+
+	On Error goto CloseRecordset
+
+	.addNew
+	.Fields("FieldName").value = "Gravity"
+	.Fields("FilmReleaseDate").value = # 07 Nov 2014#
+	.Fields("FieldRunTimeMinutes").value = 91
+	'.Fields("").value = ""
+	.Update 'commits data to database
+End with
+
+
+
+CloseRecordset:
+	MoviesData.Close
+CloseConnection:
+	MoviesConn.Close
+
+Set MoviesData = Nothing
+Set moviesconn = Nothing
+
+end sub

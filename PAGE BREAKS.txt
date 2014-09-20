@@ -1,0 +1,16 @@
+Table1.PageSetup.PrintArea = "$A$1:$R$" & FRBottom + 3    With Table1.PageSetup
+        .PrintTitleRows = "$1:$7"
+        .LeftMargin = Application.InchesToPoints(0.15748031496063)
+        .RightMargin = Application.InchesToPoints(0.15748031496063)
+        .TopMargin = Application.InchesToPoints(0.47244094488189)
+        .BottomMargin = Application.InchesToPoints(0.393700787401575)
+        .HeaderMargin = Application.InchesToPoints(0.511811023622047)
+        .FooterMargin = Application.InchesToPoints(0.511811023622047)
+        .Orientation = xlPortrait
+        .CenterHorizontally = True
+    End With
+    
+    Set Table1.VPageBreaks(1).Location = Table1.Range("R1")
+    Set Table1.HPageBreaks(1).Location = Table1.Cells(FRBreak + 1, 1)
+Table1.HPageBreaks.Add Table1.Cells(FRBreak + 1, 1) instead of the above
+

@@ -1,0 +1,60 @@
+Option Explicit
+
+Sub getthoseboxes()
+'check if in column B in a route containing "RG" in its name
+'grab all relevant info for the entry of it does
+'input the entry into an array
+'print array
+
+Dim lastRow As Long
+Dim positioner As Long
+Dim limiter As Long
+Dim counter As Long
+
+Dim array1() As Variant
+Dim array2() As Variant
+
+limiter = 0
+
+With Sheet1
+
+    lastRow = .Cells(Rows.Count, 2).End(xlUp).Row
+    array1 = .Range(.Cells(1, 1), .Cells(lastRow, 3))
+    
+    For positioner = 1 To lastRow
+        If InStr(array1(positioner, 2), "RG") Then
+        limiter = limiter + 1
+        End If
+    Next positioner
+    
+    'reset positioner counter and declare dimentions of second array to hold value
+    positioner = 1
+    ReDim array2(limiter, 3)
+    counter = 1
+    For positioner = 1 To lastRow
+    
+        If InStr(array1(positioner, 2), "RG") = 1 Then
+        array2(counter, 1) = array1(positioner, 1)
+        array2(counter, 2) = array1(positioner, 2)
+        array2(counter, 3) = array1(positioner, 3)
+        counter = counter + 1
+        End If
+        
+    Next positioner
+    
+'ActiveSheet.HPageBreaks.Add Before:=ActiveSheet.Range("B53")
+
+    
+End With
+positioner = 1
+With Sheet2
+    For positioner = 1 To UBound(array2)
+    .Cells(positioner, 1).Value = array2(positioner, 1)
+    .Cells(positioner, 2).Value = array2(positioner, 2)
+    .Cells(positioner, 3).Value = array2(positioner, 3)
+    Next positioner
+    
+    
+End With
+
+End Sub

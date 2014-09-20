@@ -1,0 +1,24 @@
+Option Explicit
+
+Public Function ifNumeric(passedvalue) As Boolean
+
+Dim tempholder As Variant
+Dim nonumbersarray(10) As Variant
+Dim r As Long
+Dim matchcounter As Long
+
+nonumbers = "q,w,e,r,t,y,u,i,o,p,[,],{,},a,s,d,f,g,h,j,k,l,;,:,',@,#,~,z,x,c,v,b,n,m,<,>,/,?,!,"",£,$,%,^,&,*,(,),_,-,=,+,Q,W,E,R,T,Y,U,I,O,P,A,S,D,F,G,H,J,K,L,Z,X,C,V,B,N,M"
+tempholder = Split(nonumbers, ",")
+matchcounter = 0
+
+For r = 0 To UBound(tempholder)
+    If InStr(passedvalue, tempholder(r)) <> 0 Then matchcounter = matchcounter + 1
+    End If
+Next r
+
+If matchcounter > 0 Then ifNumeric = False
+Else: ifNumeric = True
+End If
+
+
+End Function
