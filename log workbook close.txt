@@ -1,0 +1,22 @@
+Private Sub Workbook_BeforeClose(Cancel As Boolean)
+Dim fso As Scripting.filesystemobject
+Dim changeLog As Scripting.textstream
+Dim r As Range
+
+Set fso = New Scripting.filesystemobject
+
+Set changeLog = fso.openTextFile( _
+Filename:="", _ 'you need to specify the path to the text file within the quote
+IOMode:=ForAppending, _
+Create:=True)
+
+changeLog.Write Now & vbTab 'time and date
+changeLog.Write Workbooks.Application.ActiveWorkbook.Name & vbTab ' what workbook
+changeLog.Write ActiveSheet.Name & vbTab ' what sheet
+changeLog.Write Environ("UserName") & vbTab ' who
+changeLog.Write " " & vbTab 'cells
+changeLog.Write "Workbook Closed" & vbNewLine 'action
+
+changeLog.Close
+
+End Sub

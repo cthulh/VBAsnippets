@@ -1,0 +1,7 @@
+sub 
+
+workbooks.opentext _
+filename:="", _ 'you need to specify the path to the text file within the quote
+Tab:=True
+
+end sub
