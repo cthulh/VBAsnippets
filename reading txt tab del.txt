@@ -1,7 +1,0 @@
-sub 
-
-workbooks.opentext _
-filename:=environ("Userprofile") & "\Desktop\changesLog.txt", _
-Tab:=True
-
-end sub
