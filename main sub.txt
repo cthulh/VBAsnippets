@@ -9,7 +9,7 @@ Dim r As Range
 Set fso = New Scripting.filesystemobject
 
 Set changeLog = fso.openTextFile( _
-Filename:=Environ("UserProfile") & "\Desktop\Changes.txt", _
+Filename:="", _ 'you need to specify the path to the text file within the quote
 IOMode:=ForAppending, _
 Create:=True)
 
@@ -34,7 +34,7 @@ Dim r As Range
 Set fso = New Scripting.filesystemobject
 
 Set changeLog = fso.openTextFile( _
-Filename:=Environ("UserProfile") & "\Desktop\Changes.txt", _
+Filename:="", _ 'you need to specify the path to the text file within the quote
 IOMode:=ForAppending, _
 Create:=True)
 
@@ -76,7 +76,7 @@ Dim r As Range
 Set fso = New Scripting.filesystemobject
 
 Set changeLog = fso.openTextFile( _
-Filename:=Environ("UserProfile") & "\Desktop\Changes.txt", _
+Filename:="", _ 'you need to specify the path to the text file within the quote
 IOMode:=ForAppending, _
 Create:=True)
 
@@ -100,7 +100,7 @@ Dim r As Range
 Set fso = New Scripting.filesystemobject
 
 Set changeLog = fso.openTextFile( _
-Filename:=Environ("UserProfile") & "\Desktop\Changes.txt", _
+Filename:="", _ 'you need to specify the path to the text file within the quote
 IOMode:=ForAppending, _
 Create:=True)
 
